@@ -83,25 +83,31 @@ window.addEventListener('DOMContentLoaded', () => {
                 minutesTitle = timer.querySelector('#minutes-title'),
                 secondsTitle = timer.querySelector('#seconds-title');
 
-            if (t.days % 10 == 1) {
+            if (t.days % 10 === 1 && t.days !== 11) {
                 dayTitle.innerHTML = 'diena';
             } else if (t.days % 10 == 0 || t.days > 10 && t.days < 20) {
                 dayTitle.innerHTML = 'dienų';
+            } else {
+                dayTitle.innerHTML = 'dienos';
             }
 
-            if (t.hours % 10 == 1) {
+            if (t.hours % 10 === 1 && t.hours !== 11) {
                 hourTitle.innerHTML = 'valanda';
             } else if (t.hours > 9 && t.hours < 21) {
                 hourTitle.innerHTML = 'valandų';
+            } else {
+                hourTitle.innerHTML = 'valandos';
             }
 
-            if (t.minutes % 10 == 1) {
+            if (t.minutes % 10 === 1 && t.minutes !== 11) {
                 minutesTitle.innerHTML = 'minutė';
             } else if (t.minutes % 10 == 0 || t.minutes > 10 && t.minutes < 20) {
                 hourTitle.innerHTML = 'minučių';
+            } else {
+                minutesTitle.innerHTML = 'minutės';
             }
 
-            if (t.seconds % 10 == 1) {
+            if (t.seconds % 10 === 1 && t.seconds !== 11) {
                 secondsTitle.innerHTML = 'sekundė';
             } else if (t.seconds % 10 == 0 || t.seconds > 10 && t.seconds < 20) {
                 secondsTitle.innerHTML = 'sekundžių';
