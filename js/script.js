@@ -167,10 +167,10 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const modalTimerId = setTimeout(openModalWindow, 5000);
+    // const modalTimerId = setTimeout(openModalWindow, 5000);
 
     function showModalByScroll() {
-        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+        if (window.pageYOffset + document.documentElement.clientHeight + 20 >= document.documentElement.scrollHeight) {
             openModalWindow();
             window.removeEventListener('scroll', showModalByScroll);
         }
@@ -179,4 +179,60 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', showModalByScroll);
 
     // modalEND
+    // Class for cards START
+
+    class MenuCards {
+        constructor(src, alt, title, desc, price, parentSelector) {
+            this.src = src;
+            this.alt = alt;
+            this.title = title;
+            this.desc = desc;
+            this.price = price.toFixed(2);
+            this.parent = document.querySelector(parentSelector);
+        }
+
+
+        render() {
+            const element = document.createElement('div');
+            element.innerHTML = `
+                <div class="menu__item">
+                    <img src=${this.src} alt=${this.alt}>
+                    <h3 class="menu__item-subtitle">${this.title}</h3>
+                    <div class="menu__item-descr">${this.desc}</div>
+                    <div class="menu__item-divider"></div>
+                    <div class="menu__item-price">
+                        <div class="menu__item-cost">Kaina:</div>
+                        <div class="menu__item-total"><span>${this.price}</span> EUR/diena</div>
+                    </div>
+                </div>
+            `;
+            this.parent.append(element);
+        }
+    }
+    new MenuCards(
+        "img/tabs/vegy.jpg",
+        "vegy",
+        'Meniu "Fitnes"',
+        'Meniu "Fitnes" - tai naujas požiūris į maisto gaminimą: daugiau šviežių vaisių ir daržovių. Aktyviems, sveikiems ir sportuojantiems žmonėms.Tai visiškai naujas, aukštos kokybės, produktas už optimalią kainą!',
+        7.5,
+        '.menu .container'
+    ).render();
+
+    new MenuCards(
+        "img/tabs/elite.jpg",
+        "elite",
+        'Meniu "Premium"',
+        'Meniu "Premium" - naudojame ne tik gražų pakuotės dizainą, bet ir aukščiausios kokybės produktus.Šviežia žvis, jūros gėrybės, vaisiai - kaip geriausiuose resoranuose, tik visa tai namuose!',
+        16.8,
+        '.menu .container'
+    ).render();
+
+    new MenuCards(
+        "img/tabs/post.jpg",
+        "post",
+        'Meniu "Gavėnia"',
+        'Mūsų specialus „Gavėnios meniu“ - kruopštus ingredientų pasirinkimas: jokių gyvūninių produktų.Visiška harmonija su savimi ir gamta kiekviename kasnyje!',
+        12.3,
+        '.menu .container'
+    ).render();
 });
