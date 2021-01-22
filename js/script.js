@@ -243,4 +243,61 @@ window.addEventListener('DOMContentLoaded', () => {
         '.menu .container',
         'menu__item'
     ).render();
+
+    // Class for cards END
+    // POST Data from forms START
+
+    const forms = document.querySelectorAll('form');
+
+    const message = {
+        loading: 'Kraunasi',
+        success: 'Ačiū, netrukus susisieksime',
+        failure: 'Ups... Kažkas negerai, pabandykite iš naujo'
+    };
+    forms.forEach(form => {
+        postData(form);
+    });
+
+    function postData(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const statusMessage = document.createElement('div');
+            statusMessage.classList.add('status');
+            statusMessage.innerText = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+
+            // request.setRequestHeader('Content-type', 'multipart/form-data');
+            // Su Form-data sito nereikia
+            // Su JSON, reikia:
+            request.setRequestHeader('Content-type', 'application/json');
+
+            const formData = new FormData(form);
+
+            // jei json formData perkeliame i objekta:
+            const object = {};
+            formData.forEach(function (item, key) {
+                object[key] = item;
+            });
+            const json = JSON.stringify(object);
+
+            request.send(json);
+
+            request.addEventListener('load', () => {
+                if (request.status === 200) {
+                    console.log(request.response);
+                    statusMessage.innerText = message.success;
+                    form.reset();
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 3000);
+                } else {
+                    statusMessage.innerText = message.failure;
+                }
+            });
+        });
+    }
 });
