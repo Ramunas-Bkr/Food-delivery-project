@@ -273,7 +273,7 @@ window.addEventListener('DOMContentLoaded', () => {
             // request.setRequestHeader('Content-type', 'multipart/form-data');
             // Su Form-data sito nereikia
             // Su JSON, reikia:
-            request.setRequestHeader('Content-type', 'application/json');
+            request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 
             const formData = new FormData(form);
 
@@ -290,10 +290,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 if (request.status === 200) {
                     console.log(request.response);
                     showMessageModal(message.success);
+                    statusMessage.remove();
                     form.reset();
-                    setTimeout(() => {
-                        statusMessage.remove();
-                    }, 3000);
                 } else {
                     showMessageModal(message.failure);
                 }
@@ -316,7 +314,7 @@ window.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        document.querySelector('.modal').append(showMessageModal);
+        document.querySelector('.modal').append(thanksModal);
 
         setTimeout(() => {
             thanksModal.remove();
