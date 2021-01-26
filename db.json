@@ -1,0 +1,28 @@
+{
+  "menu": [
+    {
+      "img": "img/tabs/vegy.jpg",
+      "altimg": "vegy",
+      "title": "Meniu „Fitnes“",
+      "descr": "Meniu „Fitnes“ - tai naujas požiūris į maisto gaminimą: daugiau šviežių vaisių ir daržovių. Aktyviems, sveikiems ir sportuojantiems žmonėms.Tai visiškai naujas, aukštos kokybės, produktas už optimalią kainą!",
+      "price": 7.5
+    },
+    {
+      "img": "img/tabs/elite.jpg",
+      "altimg": "elite",
+      "title": "Meniu „Premium“",
+      "descr": "Meniu „Premium“ - naudojame ne tik gražų pakuotės dizainą, bet ir aukščiausios kokybės produktus.Šviežia žvis, jūros gėrybės, vaisiai - kaip geriausiuose resoranuose, tik visa tai namuose!",
+      "price": 16.8
+    },
+    {
+      "img": "img/tabs/post.jpg",
+      "altimg": "post",
+      "title": "Meniu „Gavėnia“",
+      "descr": "Mūsų specialus „Gavėnios meniu“ - kruopštus ingredientų pasirinkimas: jokių gyvūninių produktų.Visiška harmonija su savimi ir gamta kiekviename kasnyje!",
+      "price": 12.3
+    }
+  ],
+  "requests": [
+      
+  ]
+}

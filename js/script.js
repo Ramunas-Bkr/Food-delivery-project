@@ -251,6 +251,7 @@ window.addEventListener('DOMContentLoaded', () => {
         success: 'Ačiū, netrukus susisieksime',
         failure: 'Ups... Kažkas negerai, pabandykite iš naujo'
     };
+
     forms.forEach(form => {
         postData(form);
     });
@@ -280,16 +281,15 @@ window.addEventListener('DOMContentLoaded', () => {
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify(object)
-            }).then(data => data.text())
-                .then(data => {
-                    console.log(data);
-                    showMessageModal(message.success);
-                    statusMessage.remove();
-                }).catch(() => {
-                    showMessageModal(message.failure);
-                }).finally(() => {
-                    form.reset();
-                });
+            }).then(data => {
+                console.log(data);
+                showMessageModal(message.success);
+                statusMessage.remove();
+            }).catch(() => {
+                showMessageModal(message.failure);
+            }).finally(() => {
+                form.reset();
+            });
 
         });
     }
@@ -319,8 +319,10 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
-    // fetch('https://jsonplaceholder.typicode.com/todos/1')
-    //     .then(response => response.json())
-    //     .then(json => console.log(json));
+    fetch('http://localhost:3000/menu')
+        .then(data => data.json())
+        .then(res => console.log(res));
+
+
 });
 
