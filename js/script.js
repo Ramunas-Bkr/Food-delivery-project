@@ -211,19 +211,9 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const getResource = async (url) => {
-        const result = await fetch(url);
-
-        if (!result.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${result.status}`);
-        }
-
-        return await result.json();
-    };
-
-    getResource('http://localhost:3000/menu')
+    axios.get('http://localhost:3000/menu')
         .then(data => {
-            data.forEach(({ img, altimg, title, descr, price }) => {
+            data.data.forEach(({ img, altimg, title, descr, price }) => {
                 new MenuCards(img, altimg, title, descr, price, '.menu .container', 'menu__item').render();
             });
         });
@@ -309,11 +299,5 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModalWindow();
         }, 4000);
     }
-
-    fetch('http://localhost:3000/menu')
-        .then(data => data.json())
-        .then(res => console.log(res));
-
-
 });
 
