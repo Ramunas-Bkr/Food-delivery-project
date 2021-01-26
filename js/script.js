@@ -210,36 +210,23 @@ window.addEventListener('DOMContentLoaded', () => {
             this.parent.append(element);
         }
     }
-    new MenuCards(
-        "img/tabs/vegy.jpg",
-        "vegy",
-        'Meniu "Fitnes"',
-        'Meniu "Fitnes" - tai naujas požiūris į maisto gaminimą: daugiau šviežių vaisių ir daržovių. Aktyviems, sveikiems ir sportuojantiems žmonėms.Tai visiškai naujas, aukštos kokybės, produktas už optimalią kainą!',
-        7.5,
-        '.menu .container',
-        'menu__item',
-        'first'
-    ).render();
 
-    new MenuCards(
-        "img/tabs/elite.jpg",
-        "elite",
-        'Meniu "Premium"',
-        'Meniu "Premium" - naudojame ne tik gražų pakuotės dizainą, bet ir aukščiausios kokybės produktus.Šviežia žvis, jūros gėrybės, vaisiai - kaip geriausiuose resoranuose, tik visa tai namuose!',
-        16.8,
-        '.menu .container',
-        'menu__item'
-    ).render();
+    const getResource = async (url) => {
+        const result = await fetch(url);
 
-    new MenuCards(
-        "img/tabs/post.jpg",
-        "post",
-        'Meniu "Gavėnia"',
-        'Mūsų specialus „Gavėnios meniu“ - kruopštus ingredientų pasirinkimas: jokių gyvūninių produktų.Visiška harmonija su savimi ir gamta kiekviename kasnyje!',
-        12.3,
-        '.menu .container',
-        'menu__item'
-    ).render();
+        if (!result.ok) {
+            throw new Error(`Could not fetch ${url}, status: ${result.status}`);
+        }
+
+        return await result.json();
+    };
+
+    getResource('http://localhost:3000/menu')
+        .then(data => {
+            data.forEach(({ img, altimg, title, descr, price }) => {
+                new MenuCards(img, altimg, title, descr, price, '.menu .container', 'menu__item').render();
+            });
+        });
 
     // Class for cards END
     // POST Data from forms START
@@ -253,10 +240,22 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     forms.forEach(form => {
-        postData(form);
+        bindPostData(form);
     });
 
-    function postData(form) {
+    const postData = async (url, data) => {
+        const result = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: data
+        });
+
+        return await result.json();
+    };
+
+    function bindPostData(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -270,26 +269,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(form);
 
-            const object = {};
-            formData.forEach(function (item, key) {
-                object[key] = item;
-            });
+            const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-            fetch('server.php', {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(object)
-            }).then(data => {
-                console.log(data);
-                showMessageModal(message.success);
-                statusMessage.remove();
-            }).catch(() => {
-                showMessageModal(message.failure);
-            }).finally(() => {
-                form.reset();
-            });
+            postData('http://localhost:3000/requests', json)
+                .then(data => {
+                    console.log(data);
+                    showMessageModal(message.success);
+                    statusMessage.remove();
+                }).catch(() => {
+                    showMessageModal(message.failure);
+                }).finally(() => {
+                    form.reset();
+                });
 
         });
     }
