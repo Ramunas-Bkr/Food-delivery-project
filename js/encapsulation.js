@@ -6,10 +6,10 @@ class User {
         this._age = age;
     }
 
-    #surname = 'Petrychenko';
+    #surname = 'Petraitis';
 
     say = () => {
-        console.log(`Имя пользователя: ${this.name} ${this.#surname}, возраст ${this._age}`);
+        console.log(`Name: ${this.name} ${this.#surname}, age ${this._age}`);
     }
 
     get age() {
@@ -20,9 +20,9 @@ class User {
         if (typeof age === 'number' && age > 0 && age < 110) {
             this._age = age;
         } else {
-            console.log('Недопустимое значение!');
+            console.log('Invalid value!');
         }
     }
 }
 
-const ivan = new User('Ivan', 27);
+const petras = new User('Petras', 27);
