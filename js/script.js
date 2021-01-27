@@ -365,11 +365,15 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function getWidth(param = 1) {
+        return +width.replace(/\D/g, '') * param;
+    }
+
     next.addEventListener('click', () => {
-        if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
+        if (offset == getWidth(slides.length - 1)) {
             offset = 0;
         } else {
-            offset += +width.slice(0, width.length - 2);
+            offset += getWidth();
         }
         slidesField.style.transform = `translateX(-${offset}px)`;
 
@@ -384,9 +388,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     prev.addEventListener('click', () => {
         if (offset == 0) {
-            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+            offset = getWidth(slides.length - 1);
         } else {
-            offset -= +width.slice(0, width.length - 2);
+            offset -= getWidth();
         }
         slidesField.style.transform = `translateX(-${offset}px)`;
 
@@ -403,7 +407,7 @@ window.addEventListener('DOMContentLoaded', () => {
         dot.addEventListener('click', (e) => {
             const slideTo = e.target.getAttribute('data-slide-to');
             slideIndex = slideTo;
-            offset = +width.slice(0, width.length - 2) * (slideTo - 1);
+            offset = getWidth(slideTo - 1);
             slidesField.style.transform = `translateX(-${offset}px)`;
             addCurrentIndex(slideIndex);
             styleDots(slideIndex - 1);
