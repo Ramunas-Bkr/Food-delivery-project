@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const modalTimerId = setTimeout(() => openModalWindow('.modal', modalTimerId), 5000);
 
     tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
-    timer('.timer', '2021-02-01');
+    timer('.timer', '2021-04-01');
     modal('[data-modal]', '.modal', modalTimerId);
     cards();
     post('form', modalTimerId);
